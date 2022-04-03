@@ -56,21 +56,21 @@ jobs:
 
           cat ${{matrix.platform}}_user_config.json
 
-      - name: 添加扩展驱动
-        if: matrix.platform != 'ds3617xs'
-        run: |
-          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-acpid/rpext-index.json
-          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-virtio/rpext-index.json
+
 
       - name: 添加扩展驱动[ds3617xs]
         if: matrix.platform == 'ds3617xs'
         run: |
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-acpid/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-virtio/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-misc/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-igb/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-ixgbe/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-mpt3sas/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-aacraid/rpext-index.json
           echo '等待整理兼容性扩展~😀'
 
-      - name: 添加 jumkey.misc
-        if: endsWith(matrix.version,'42218') && matrix.platform != 'ds3617xs'
-        run: |
-          ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-misc/rpext-index.json
+        
 
       - name: 添加 jumkey.dtb !!!Create your own device tree binary!!!
         if: matrix.platform == 'ds920p' || matrix.platform == 'ds1621p'
